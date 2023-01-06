@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
 
+import 'local_notification_example/notification_example.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const SnackBarExample(),
+      home: const NotificationExample(),
     );
   }
 }

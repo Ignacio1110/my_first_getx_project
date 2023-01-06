@@ -20,6 +20,10 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+            <!-- 加上這個meta data 定義default的通道id，實際local notification可以繼續修改channel id&channel name-->
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_channel_id"
+                android:value="my channel id" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
