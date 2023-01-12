@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_first_getx_project/sliver_example/sliver_example.dart';
 import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
 
+import 'dialog_example/dialog_example.dart';
 import 'local_notification_example/notification_example.dart';
 
 void main() {
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const NotificationExample(),
+      home: const SliverExample(),
     );
   }
 }
