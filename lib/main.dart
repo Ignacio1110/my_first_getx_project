@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_first_getx_project/sliver_example/sliver_example.dart';
+import 'package:my_first_getx_project/sliver_example/sliver_example_theme.dart';
 import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
 
 import 'dialog_example/dialog_example.dart';
@@ -18,18 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+      theme: SliverExampleTheme.lightTheme,
       home: const SliverExample(),
     );
   }

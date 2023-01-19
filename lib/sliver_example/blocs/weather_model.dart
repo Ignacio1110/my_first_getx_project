@@ -11,8 +11,8 @@
 class WeatherModel {
   final String stationName;
   final String stationId;
-  final String stationLatitude;
-  final String stationLongitude;
+  final String stationLatitude; //緯度
+  final String stationLongitude; //經度
   final String city;
   final String citySn;
   final String town;
