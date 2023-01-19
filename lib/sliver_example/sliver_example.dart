@@ -25,18 +25,26 @@ class _SliverExampleState extends State<SliverExample> {
           setState(() {});
         },
         child: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            },
-          ),
-          child: ListView.builder(
-              itemCount: weatherModels.length,
-              itemBuilder: (context, index) {
-                return Text("${weatherModels[index]}");
-              }),
-        ),
+            behavior: ScrollConfiguration.of(context).copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },
+            ),
+            child: Scrollbar(
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Text('simple box'),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((ctx, index) {
+                      return Text("${weatherModels[index]}");
+                    }, childCount: weatherModels.length),
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
