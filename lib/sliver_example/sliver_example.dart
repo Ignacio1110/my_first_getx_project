@@ -18,8 +18,9 @@ class _SliverExampleState extends State<SliverExample> {
   List<WeatherModel> weatherModels = [];
 
   SliverList _buildStationsList(String city) {
-    final stations = weatherModels.where((element) => element.city == city).toList();
-    return   SliverList(
+    final stations =
+        weatherModels.where((element) => element.city == city).toList();
+    return SliverList(
       delegate: SliverChildBuilderDelegate((ctx, index) {
         return WeatherCard(
           weatherModel: stations[index],
@@ -30,7 +31,6 @@ class _SliverExampleState extends State<SliverExample> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
@@ -39,37 +39,53 @@ class _SliverExampleState extends State<SliverExample> {
           setState(() {});
         },
         child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+            },
+          ),
+          child: Scrollbar(
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 140,
+                  stretch: true,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text('全台觀測站資訊'),
+                    background: FlutterLogo(),
+                    collapseMode: CollapseMode.parallax,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      '用於顯示全台各地的觀測站',
+                      style: SliverExampleTheme.textTheme.bodyText1
+                          ?.copyWith(color: Colors.black),
+                    ),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  delegate: MyTitleDelegate('臺北市'),
+                  pinned: true,
+                ),
+                _buildStationsList('臺北市'),
+                SliverPersistentHeader(
+                  delegate: MyTitleDelegate('高雄市'),
+                  pinned: true,
+                ),
+                _buildStationsList('高雄市'),
+                SliverPersistentHeader(
+                  delegate: MyTitleDelegate('新竹市'),
+                  pinned: true,
+                ),
+                _buildStationsList('新竹市')
+              ],
             ),
-            child: Scrollbar(
-              child: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: 140,
-                    stretch: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text('全台觀測站資訊'),
-                      background: FlutterLogo(),
-                      collapseMode: CollapseMode.parallax,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Center(
-                      child: Text(
-                        '用於顯示全台各地的觀測站',
-                        style: SliverExampleTheme.textTheme.bodyText1
-                            ?.copyWith(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  _buildStationsList('臺北市')
-                ],
-              ),
-            )),
+          ),
+        ),
       ),
     );
   }

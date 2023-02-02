@@ -43,3 +43,30 @@ class WeatherCard extends StatelessWidget {
     );
   }
 }
+
+class MyTitleDelegate extends SliverPersistentHeaderDelegate {
+  MyTitleDelegate(this.title);
+  final String title;
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: 40,
+      color: SliverExampleTheme.kColor3,
+      child: Center(
+        child: Text(title),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 40;
+
+  @override
+  double get minExtent => 40;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+}
