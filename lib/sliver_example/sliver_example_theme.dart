@@ -37,10 +37,9 @@ class SliverExampleTheme {
     900: Color(0xff473847)
   });
 
-  static  TextTheme textTheme =  TextTheme(
-  bodyText1: TextStyle(color: kPrimarySwatch.shade50),
-  bodyText2: TextStyle(color: kPrimarySwatch.shade50));
-
+  static TextTheme textTheme = TextTheme(
+      bodyText1: TextStyle(color: kPrimarySwatch.shade50),
+      bodyText2: TextStyle(color: kPrimarySwatch.shade50));
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: kPrimary,
