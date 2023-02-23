@@ -1,8 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/painting.dart';
 
-class MyLayerPainter extends EditorCropLayerPainter {
-  const MyLayerPainter();
+class EditorLayerPainter extends EditorCropLayerPainter {
+  const EditorLayerPainter();
 
   void paint(Canvas canvas, Size size, ExtendedImageCropLayerPainter painter) {
     paintMask(canvas, size, painter);

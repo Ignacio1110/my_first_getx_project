@@ -1,15 +1,18 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_first_getx_project/image_picker_example/src/crop_editor_helper.dart';
+import 'package:photo_manager/photo_manager.dart';
 
-import 'photo_picker_example.dart';
+import 'src/crop_editor_helper.dart';
 
 class PreviewController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  Rxn<AssetWrapper> previewAsset = Rxn<AssetWrapper>();
+  RxList<AssetWrapper> selectedAssets = <AssetWrapper>[].obs;
+
   /// [AnimationController] for double tap animation.
   /// 双击缩放的动画控制器
   late AnimationController doubleTapAnimationController;
@@ -71,6 +74,7 @@ class PreviewController extends GetxController
 
   final GlobalKey<ExtendedImageEditorState> editorKey =
       GlobalKey<ExtendedImageEditorState>();
+  List editorKeys = [];
   Future<void> cropImage() async {
     if (_cropping) {
       return;
@@ -93,4 +97,25 @@ class PreviewController extends GetxController
     initAnimations();
     super.onInit();
   }
+}
+
+class ImageSaver {
+  const ImageSaver._();
+
+  static Future<String?> save(String name, Uint8List fileData) async {
+    final String title = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final AssetEntity? imageEntity = await PhotoManager.editor.saveImage(
+      fileData,
+      title: title,
+    );
+    final File? file = await imageEntity?.file;
+    return file?.path;
+  }
+}
+
+class AssetWrapper {
+  AssetWrapper(this.assetEntity);
+  final AssetEntity assetEntity;
+  final GlobalKey<ExtendedImageEditorState> editorKey =
+      GlobalKey<ExtendedImageEditorState>();
 }

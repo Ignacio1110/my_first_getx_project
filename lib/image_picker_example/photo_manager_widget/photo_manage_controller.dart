@@ -9,10 +9,10 @@ import 'package:photo_manager/photo_manager.dart';
 // import 'src/sort_path_delegate.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class AssetPickerController extends GetxController {
-  AssetPickerController({
+class PhotoManagerController extends GetxController {
+  PhotoManagerController({
     // this.selectedAssets,
-    // this.maxAssets,
+    this.maxSelectAssets = defaultMaxAssetsCount,
     // this.pageSize,
     // this.pathThumbnailSize,
     this.requestType = RequestType.image,
@@ -50,9 +50,7 @@ class AssetPickerController extends GetxController {
   static const ThumbnailSize defaultPathThumbnailSize =
       ThumbnailSize.square(80);
 
-  //TODO this four
-  final RxList<AssetEntity> selectedAssets = <AssetEntity>[].obs;
-  final maxAssets = defaultMaxAssetsCount;
+  final int maxSelectAssets;
   final pageSize = defaultAssetsPerPage;
   final pathThumbnailSize = defaultPathThumbnailSize;
 
@@ -69,6 +67,27 @@ class AssetPickerController extends GetxController {
   /// Will be merged into the base configuration.
   /// 将会与基础条件进行合并。
   final FilterOptionGroup? filterOptions;
+
+  final RxList<AssetEntity> _selectedAssets = <AssetEntity>[].obs;
+  RxList<AssetEntity> get selectedAssets => _selectedAssets;
+
+  ///選擇圖片，
+  ///單選/多選
+  selectAsset(AssetEntity assetEntity) {
+    final int index = _selectedAssets.indexWhere(
+      (AssetEntity s) => assetEntity.id == s.id,
+    );
+    if (index == -1) {
+      if (_selectedAssets.length < maxSelectAssets) {
+        _selectedAssets.add(assetEntity);
+      } else {
+        _selectedAssets.removeLast();
+        _selectedAssets.add(assetEntity);
+      }
+    } else {
+      _selectedAssets.removeAt(index);
+    }
+  }
 
   ///當前所選圖案路徑
   final Rxn<PathWrapper<AssetPathEntity>?> _currentPath =
@@ -101,35 +120,34 @@ class AssetPickerController extends GetxController {
   /// for the first asset under the path.
   /// 使用 [Map] 来保存路径下第一个资源的缩略图数据
   final RxList<PathWrapper<AssetPathEntity>> _paths =
-      <PathWrapper<AssetPathEntity>>[].obs;
-  List<PathWrapper<AssetPathEntity>> get paths => _paths.value;
+      RxList<PathWrapper<AssetPathEntity>>([]);
+  List<PathWrapper<AssetPathEntity>> get paths => _paths;
 
   /// Set thumbnail [data] for the specific [path].
   /// 为指定的路径设置缩略图数据
   void setPathThumbnail(AssetPathEntity path, Uint8List? data) {
-    final int index = paths.indexWhere(
+    final int index = _paths.indexWhere(
       (PathWrapper<AssetPathEntity> w) => w.path == path,
     );
     if (index != -1) {
-      final PathWrapper<AssetPathEntity> newWrapper = paths[index].copyWith(
+      final PathWrapper<AssetPathEntity> newWrapper = _paths[index].copyWith(
         thumbnailData: data,
       );
-      paths[index] = newWrapper;
-      _paths.value = paths;
+      _paths[index] = newWrapper;
+      _paths.assignAll(paths);
     }
   }
 
   /// Assets under current path entity.
   /// 正在查看的资源路径下的所有资源
-  final RxList<AssetEntity> _currentAssetsRx = RxList<AssetEntity>([]);
-  RxList<AssetEntity> get currentAssetsRx => _currentAssetsRx;
-  List<AssetEntity> get currentAssets => _currentAssetsRx.value;
+  final RxList<AssetEntity> _currentAssets = RxList<AssetEntity>([]);
+  List<AssetEntity> get currentAssets => _currentAssets;
 
   set currentAssets(List<AssetEntity> value) {
     if (value == currentAssets) {
       return;
     }
-    _currentAssetsRx.value = value.toList();
+    _currentAssets.assignAll(value.toList());
   }
 
   /// Whether there are any assets can be displayed.
@@ -152,7 +170,7 @@ class AssetPickerController extends GetxController {
   /// Whether there are assets on the devices.
   /// 设备上是否有资源文件
   bool get isAssetsEmpty => _isAssetsEmpty.value;
-  RxBool _isAssetsEmpty = false.obs;
+  final RxBool _isAssetsEmpty = false.obs;
 
   set isAssetsEmpty(bool value) {
     if (value == isAssetsEmpty) {
@@ -162,7 +180,7 @@ class AssetPickerController extends GetxController {
   }
 
   /// Total count for assets.
-  /// 资源总数
+  /// 資源總數
   int? get totalAssetsCount => _totalAssetsCount.value;
   final Rxn<int?> _totalAssetsCount = Rxn<int?>();
 
@@ -173,7 +191,6 @@ class AssetPickerController extends GetxController {
     _totalAssetsCount.value = value;
   }
 
-  @override
   Future<void> getPaths() async {
     // Initial base options.
     // Enable need title for audios and image to get proper display.
@@ -201,25 +218,24 @@ class AssetPickerController extends GetxController {
       filterOption: options,
     );
 
-    _paths.value = list
+    _paths.assignAll(list
         .map((AssetPathEntity p) => PathWrapper<AssetPathEntity>(path: p))
-        .toList();
+        .toList());
     // Sort path using sort path delegate.
     sortPathDelegate.sort(_paths);
     // Use sync method to avoid unnecessary wait.
-    paths
+    _paths
       ..forEach(getAssetCountFromPath)
       ..forEach(getThumbnailFromPath);
 
     // Set first path entity as current path entity.
-    if (paths.isNotEmpty) {
+    if (_paths.isNotEmpty) {
       currentPath ??= paths.first;
     }
   }
 
   Completer<void>? _getAssetsFromPathCompleter;
 
-  @override
   Future<void> getAssetsFromPath([int? page, AssetPathEntity? path]) {
     Future<void> run() async {
       final int currentPage = page ?? currentAssetsListPage;
@@ -229,10 +245,10 @@ class AssetPickerController extends GetxController {
         size: pageSize,
       );
       if (currentPage == 0) {
-        _currentAssetsRx.clear();
+        _currentAssets.clear();
       }
-      currentAssets.addAll(list);
-      hasAssetsToDisplay = currentAssets.isNotEmpty;
+      _currentAssets.addAll(list);
+      hasAssetsToDisplay = _currentAssets.isNotEmpty;
     }
 
     if (_getAssetsFromPathCompleter == null) {
