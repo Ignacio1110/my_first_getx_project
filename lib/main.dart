@@ -5,6 +5,7 @@ import 'package:my_first_getx_project/sliver_example/sliver_example_theme.dart';
 import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
 
 import 'dialog_example/dialog_example.dart';
+import 'image_picker_example/photo_picker_example.dart';
 import 'local_notification_example/notification_example.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: SliverExampleTheme.lightTheme,
-      home: const SliverExample(),
+      home: PhotoPickerExample(),
     );
   }
 }
