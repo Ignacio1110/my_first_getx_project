@@ -44,6 +44,7 @@ dependencies:
   extended_image: any
   image_editor: any
   image: any
+  pull_to_refresh_flutter3: any
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_first_getx_project/refresh_example/refresh_example.dart';
 import 'package:my_first_getx_project/sliver_example/sliver_example.dart';
 import 'package:my_first_getx_project/sliver_example/sliver_example_theme.dart';
 import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
@@ -36,6 +37,10 @@ class MyApp extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => Get.to(() => ImagePickerExample()),
                     child: Text("photo picker"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => QQChatList()),
+                    child: Text("refresh"),
                   ),
                 ],
               ),
