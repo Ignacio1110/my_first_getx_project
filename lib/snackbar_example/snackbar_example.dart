@@ -11,9 +11,7 @@ class SnackBarExample extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Get.back();
-            GetSnackBar(
-              // title: "title",
+            const GetSnackBar(
               message: "test",
               titleText: Center(
                 child: Text(
@@ -21,6 +19,7 @@ class SnackBarExample extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
+              duration: Duration(seconds: 1),
             ).show();
           },
           child: const Text('snack bar'),

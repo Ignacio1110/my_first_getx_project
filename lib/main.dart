@@ -42,6 +42,18 @@ class MyApp extends StatelessWidget {
                     onPressed: () => Get.to(() => QQChatList()),
                     child: Text("refresh"),
                   ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => NotificationExample()),
+                    child: Text("local notification"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => SnackBarExample()),
+                    child: Text("snack bar"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => DialogExample()),
+                    child: Text("get dialog"),
+                  ),
                 ],
               ),
             ),
