@@ -58,6 +58,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  patrol: ^1.0.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -100,3 +101,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+patrol:
+  app_name: my_first_getx_project
+  android:
+    package_name: com.ignacio85.app.firstGetXApp.my_first_getx_project
+  ios:
+    bundle_id: com.ignacio85.app.firstGetXApp.my_first_getx_project
