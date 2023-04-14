@@ -7,6 +7,7 @@ import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
 
 import 'dialog_example/dialog_example.dart';
 import 'image_picker_example/image_picker_example.dart';
+import 'isolate_example/isolate_example.dart';
 import 'local_notification_example/notification_example.dart';
 
 void main() {
@@ -53,6 +54,10 @@ class MyApp extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => Get.to(() => DialogExample()),
                     child: Text("get dialog"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => IsolateExample()),
+                    child: Text("isolate"),
                   ),
                 ],
               ),
