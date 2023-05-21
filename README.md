@@ -18,3 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 
 patrol_cli
 patrol test --target integration_test/app_with_patrol_test.dart
+
+flutter build ios --config-only integration_test/app_with_patrol_test.dart
+patrol test --target integration_test/app_with_patrol_test.dart
+
