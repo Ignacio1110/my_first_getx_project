@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_first_getx_project/custom_clippers_example/custom_clippers_example.dart';
 import 'package:my_first_getx_project/refresh_example/refresh_example.dart';
 import 'package:my_first_getx_project/sliver_example/sliver_example.dart';
 import 'package:my_first_getx_project/sliver_example/sliver_example_theme.dart';
@@ -58,6 +59,10 @@ class MyApp extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => Get.to(() => IsolateExample()),
                     child: Text("isolate"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => CustomClippersExample()),
+                    child: Text("custom clippers"),
                   ),
                 ],
               ),

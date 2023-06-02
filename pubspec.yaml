@@ -45,6 +45,7 @@ dependencies:
   image_editor: any
   image: any
   pull_to_refresh_flutter3: any
+  flutter_animate: ^4.1.1
 
 dev_dependencies:
   integration_test:
