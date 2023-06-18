@@ -9,21 +9,29 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_first_getx_project/chat_app_example/chat_room_controller.dart';
 import 'package:my_first_getx_project/chat_app_example/const.dart';
+import 'package:my_first_getx_project/chat_app_example/repository/message_repository.dart';
 import 'package:uuid/uuid.dart';
 
+import 'repository/mock_message_repository.dart';
+
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  const ChatPage({super.key, required this.id, required this.chatKey});
+  final String id;
+  final GlobalKey<ChatState> chatKey;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List<types.Message> _messages = [];
-
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      ChatRoomController controller =
+          Get.put(ChatRoomController(widget.id), tag: widget.id);
+      controller.scrollToUnread();
+    });
   }
 
   void _handleAttachmentPressed() {
@@ -92,20 +100,31 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    ChatRoomController controller = Get.put(ChatRoomController("test_roomId"));
+    ChatRoomController controller =
+        Get.put(ChatRoomController(widget.id), tag: widget.id);
     return Scaffold(
       body: Obx(() {
         controller.messages.toList();
         return Chat(
-            messages: controller.messages.toList(),
-            onAttachmentPressed: _handleAttachmentPressed,
-            onMessageTap: controller.handleMessageTap,
-            onPreviewDataFetched: controller.handlePreviewDataFetched,
-            onSendPressed: controller.handleSendPressed,
-            showUserAvatars: true,
-            showUserNames: true,
-            user: ownUser,
-            onEndReached: controller.fetchPrevMessages);
+          key: widget.chatKey,
+          scrollToUnreadOptions: ScrollToUnreadOptions(
+            lastReadMessageId:
+                (Get.find<MessageRepository>() as MockMessageRepository)
+                    .remoteMessages[30]
+                    .id,
+            scrollDelay: Duration(seconds: 2),
+            scrollDuration: Duration(seconds: 2),
+          ),
+          messages: controller.messages.toList(),
+          onAttachmentPressed: _handleAttachmentPressed,
+          onMessageTap: controller.handleMessageTap,
+          onPreviewDataFetched: controller.handlePreviewDataFetched,
+          onSendPressed: controller.handleSendPressed,
+          showUserAvatars: true,
+          showUserNames: true,
+          user: ownUser,
+          onEndReached: controller.handleEndReached,
+        );
       }),
     );
   }
