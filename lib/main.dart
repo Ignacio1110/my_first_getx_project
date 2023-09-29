@@ -7,6 +7,7 @@ import 'package:my_first_getx_project/sliver_example/sliver_example.dart';
 import 'package:my_first_getx_project/sliver_example/sliver_example_theme.dart';
 import 'package:my_first_getx_project/snackbar_example/snackbar_example.dart';
 
+import 'animate_example/animate_example.dart';
 import 'dialog_example/dialog_example.dart';
 import 'image_picker_example/image_picker_example.dart';
 import 'isolate_example/isolate_example.dart';
@@ -68,6 +69,10 @@ class MyApp extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => Get.to(() => ChatAppExample()),
                     child: Text("chat app example"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.to(() => AnimateExample()),
+                    child: Text("animation countdown example"),
                   ),
                 ],
               ),

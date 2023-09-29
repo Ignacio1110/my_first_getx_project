@@ -105,6 +105,11 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       body: Obx(() {
         controller.messages.toList();
+        // return Chat(
+        //   messages: [],
+        //   user: User(),
+        //   onSendPressed: () {},
+        // );
         return Chat(
           key: widget.chatKey,
           scrollToUnreadOptions: ScrollToUnreadOptions(

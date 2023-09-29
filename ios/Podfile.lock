@@ -1,5 +1,7 @@
 PODS:
   - _NIODataStructures (2.40.0)
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - CGRPCZlib (1.8.0)
   - CNIOAtomics (2.40.0)
   - CNIOBoringSSL (2.19.0)
@@ -214,6 +216,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
@@ -260,6 +263,8 @@ SPEC REPOS:
     - SwiftyGif
 
 EXTERNAL SOURCES:
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
@@ -287,6 +292,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   _NIODataStructures: 3d45d8e70a1d17a15b1dc59d102c63dbc0525ffd
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   CGRPCZlib: 298dd3237ba4bd7b3eed109e7080ff3324b7d9c9
   CNIOAtomics: 8edf08644e5e6fa0f021c239be9e8beb1cd9ef18
   CNIOBoringSSL: 2c9c96c2e95f15e83fb8d26b9738d939cc39ae33

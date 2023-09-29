@@ -29,7 +29,19 @@
       )
       ```
 3. flutter_chat_ui支援的訊息類型很多，除了文字、影音訊息外，還支援SystemMessage以及檔案與客製化訊息。
-   它們都是繼承自共同的`Message`類。
+   它們都是繼承自共同的`Message`類。要使用這些類別需要引入另一個package，`flutter_chat_types`，這個package。
+包含flutter_chat_ui所需要用到的類別，除了訊息類型也包含User、Room、PreviewData類型。
+
+   ```
+    flutter pub add flutter_chat_types
+    ```
+
+   或
+
+    ```yaml
+    dependencies:
+    flutter_chat_ui: ^3.6.1
+   ```
    
       ```dart
        //message.dart中列出的訊息種類
@@ -53,6 +65,7 @@
        }
       ```
     User類，除了user id 還可以設定firstName、imageUrl、role 等變量。
+   從這些類的設計，可以啟發如何設計Chat App的各種資料結構。
 
 
 4. 官方範例-basic
@@ -128,6 +141,11 @@
    }
    ```
 
+##進階使用-分頁、Pagination
+   
+
 ##使用GetX進行狀態管理
+
+   
 
 ##聊天室列表
